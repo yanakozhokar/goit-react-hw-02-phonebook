@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import Container from './Container/Container';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
@@ -28,7 +29,29 @@ class App extends Component {
         contact.number.toLowerCase().includes(this.state.filter)
       ) {
         return contact;
-      }
+      } else return false;
+    });
+  };
+
+  addContact = newContact => {
+    const { name, number } = newContact;
+    if (
+      this.state.contacts.some(contact => {
+        return contact.name === name;
+      })
+    ) {
+      alert(`${name} is already in contacts.`);
+      return;
+    } else {
+      this.setState({
+        contacts: [...this.state.contacts, { id: nanoid(), name, number }],
+      });
+    }
+  };
+
+  deleteContact = id => {
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
     });
   };
 
@@ -37,11 +60,15 @@ class App extends Component {
       <Container>
         <div>
           <h1>Phonebook</h1>
-          {/* <ContactForm /> */}
-
+          <ContactForm addContact={this.addContact} />
           <h2>Contacts</h2>
           <Filter onFilterChange={this.onFilterChange} />
-          <ContactList filteredContacts={this.filterHandler()} />
+          {this.state.filter !== '' && (
+            <ContactList
+              filteredContacts={this.filterHandler()}
+              deleteContact={this.deleteContact}
+            />
+          )}
         </div>
       </Container>
     );
