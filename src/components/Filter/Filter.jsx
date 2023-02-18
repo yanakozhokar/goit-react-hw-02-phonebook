@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import css from './Filter.module.css';
 
 const Filter = ({ onFilterChange }) => {
@@ -17,6 +18,10 @@ const Filter = ({ onFilterChange }) => {
       />
     </label>
   );
+};
+
+Filter.propTypes = {
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
