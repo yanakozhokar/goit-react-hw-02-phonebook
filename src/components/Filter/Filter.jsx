@@ -1,8 +1,11 @@
+import css from './Filter.module.css';
+
 const Filter = ({ onFilterChange }) => {
   return (
-    <label>
+    <label className={css.label}>
       Find contacts by name
       <input
+        className={css.input}
         type="text"
         name="name"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
