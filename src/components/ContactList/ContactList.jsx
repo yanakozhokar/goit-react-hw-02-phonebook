@@ -20,9 +20,4 @@ const ContactList = ({ filteredContacts, deleteContact }) => {
   );
 };
 
-ContactList.propTypes = {
-  filteredContacts: PropTypes.func.isRequired,
-  deleteContact: PropTypes.func.isRequired,
-};
-
 export default ContactList;

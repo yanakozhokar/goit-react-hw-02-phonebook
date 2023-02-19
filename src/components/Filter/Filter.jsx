@@ -20,8 +20,4 @@ const Filter = ({ onFilterChange }) => {
   );
 };
 
-Filter.propTypes = {
-  onFilterChange: PropTypes.func.isRequired,
-};
-
 export default Filter;

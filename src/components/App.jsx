@@ -24,29 +24,24 @@ class App extends Component {
 
   filterHandler = () => {
     return this.state.contacts.filter(contact => {
-      if (
-        contact.name.toLowerCase().includes(this.state.filter) ||
-        contact.number.toLowerCase().includes(this.state.filter)
-      ) {
-        return contact;
-      } else return false;
+      return contact.name.toLowerCase().includes(this.state.filter);
     });
   };
 
   addContact = newContact => {
     const { name, number } = newContact;
-    if (
-      this.state.contacts.some(contact => {
-        return contact.name === name;
-      })
-    ) {
+    const isExist = this.state.contacts.some(contact => {
+      return contact.name === name;
+    });
+
+    if (isExist) {
       alert(`${name} is already in contacts.`);
       return;
-    } else {
-      this.setState({
-        contacts: [...this.state.contacts, { id: nanoid(), name, number }],
-      });
     }
+
+    this.setState({
+      contacts: [...this.state.contacts, { id: nanoid(), name, number }],
+    });
   };
 
   deleteContact = id => {
@@ -63,12 +58,10 @@ class App extends Component {
           <ContactForm addContact={this.addContact} />
           <h2>Contacts</h2>
           <Filter onFilterChange={this.onFilterChange} />
-          {this.state.filter !== '' && (
-            <ContactList
-              filteredContacts={this.filterHandler()}
-              deleteContact={this.deleteContact}
-            />
-          )}
+          <ContactList
+            filteredContacts={this.filterHandler()}
+            deleteContact={this.deleteContact}
+          />
         </div>
       </Container>
     );
